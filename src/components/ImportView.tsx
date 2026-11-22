@@ -3,10 +3,12 @@ import type { Journal } from '../lib/store';
 import { parseCsv } from '../lib/parse';
 import { sampleExecutions } from '../lib/sample';
 import type { Execution, Side } from '../types';
+import type { IbkrSync } from '../lib/ibkr';
+import IbkrCard from './IbkrCard';
 
-interface Props { journal: Journal; onDone: () => void }
+interface Props { journal: Journal; ibkr: IbkrSync; onDone: () => void }
 
-export default function ImportView({ journal, onDone }: Props) {
+export default function ImportView({ journal, ibkr, onDone }: Props) {
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [drag, setDrag] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -73,6 +75,7 @@ export default function ImportView({ journal, onDone }: Props) {
 
   return (
     <div className="stack narrow">
+      <IbkrCard ibkr={ibkr} />
       <div className="card">
         <h3>Import CSV od brokera</h3>
         <div

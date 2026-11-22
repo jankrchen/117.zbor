@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useJournal } from './lib/store';
+import { useIbkrSync } from './lib/ibkr';
+import { StatusDot } from './components/IbkrCard';
 import { buildTrades } from './lib/trades';
 import type { Trade } from './types';
 import Dashboard from './components/Dashboard';
@@ -22,6 +24,7 @@ const TABS: { id: Tab; label: string; icon: string }[] = [
 
 export default function App() {
   const journal = useJournal();
+  const ibkr = useIbkrSync(journal.addExecutions);
   const [tab, setTab] = useState<Tab>(journal.executions.length ? 'dashboard' : 'import');
   const [filters, setFilters] = useState<FilterState>(emptyFilters);
   const [selected, setSelected] = useState<string | null>(null);
@@ -47,6 +50,9 @@ export default function App() {
             </button>
           ))}
         </nav>
+        <button className="ibkr-pill" onClick={() => setTab('import')} title="Prepojenie s IBKR">
+          IBKR <StatusDot ibkr={ibkr} />
+        </button>
         <div className="sidebar-foot">
           {allTrades.length} obchodov · {journal.executions.length} exekúcií
         </div>
@@ -67,7 +73,7 @@ export default function App() {
             {tab === 'trades' && <TradesTable trades={trades} meta={journal.meta} onOpen={open} />}
             {tab === 'calendar' && <CalendarView trades={trades} onOpen={open} />}
             {tab === 'reports' && <Reports trades={trades} meta={journal.meta} />}
-            {tab === 'import' && <ImportView journal={journal} onDone={() => setTab('dashboard')} />}
+            {tab === 'import' && <ImportView journal={journal} ibkr={ibkr} onDone={() => setTab('dashboard')} />}
           </>
         )}
       </main>

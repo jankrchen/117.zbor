@@ -68,7 +68,7 @@ describe('parseCsv', () => {
 
   it('parses IBKR flex style with signed qty and negative commission', () => {
     const r = parseCsv('ClientAccountID,AssetClass,Symbol,DateTime,Quantity,TradePrice,IBCommission,Buy/Sell,TradeID,Multiplier\nU123,STK,MSFT,20260302;093500,-10,400,-0.35,SELL,555,1\nU123,FUT,ESH6,20260302;100000,1,5000,-2.25,BUY,556,50');
-    expect(r.executions[0]).toMatchObject({ side: 'SELL', quantity: 10, fees: 0.35, account: 'U123', id: 'csv:555' });
+    expect(r.executions[0]).toMatchObject({ side: 'SELL', quantity: 10, fees: 0.35, account: 'U123', id: 'id:555' });
     expect(r.executions[1].multiplier).toBe(50);
   });
 

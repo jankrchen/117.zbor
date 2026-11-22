@@ -63,6 +63,15 @@ pre { background: var(--bg); padding: 10px; border-radius: 6px; overflow-x: auto
 .sidebar nav button { border: none; text-align: left; display: flex; gap: 10px; align-items: center; padding: 9px 10px; background: none; }
 .sidebar nav button.active { background: var(--hover); color: var(--accent); font-weight: 600; }
 .ico { width: 18px; text-align: center; }
+.ibkr-pill { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; margin: 0 4px; }
+.dot { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--muted); }
+.dot::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.dot.on::before { background: var(--pos); }
+.dot.err::before { background: var(--neg); }
+.dot.busy::before { background: var(--accent); animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.3; } }
+.setup ol { padding-left: 20px; line-height: 1.6; }
+.help ul { padding-left: 20px; line-height: 1.6; }
 .sidebar-foot { margin-top: auto; font-size: 12px; color: var(--muted); padding: 0 8px; }
 main { padding: 18px 22px 40px; min-width: 0; }
 
@@ -85,7 +94,7 @@ main { padding: 18px 22px 40px; min-width: 0; }
 .seg button.active { background: var(--accent); color: #fff; }
 .seg.wrap { flex-wrap: wrap; border: none; gap: 6px; }
 .seg.wrap button { border: 1px solid var(--border); border-radius: 999px; }
-.chk { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); }
+.row label.chk, .chk { flex-direction: row; display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); }
 
 .kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
 .kpi-label { font-size: 12px; color: var(--muted); }
@@ -155,6 +164,7 @@ main { padding: 18px 22px 40px; min-width: 0; }
   .sidebar { position: static; height: auto; flex-direction: row; align-items: center; overflow-x: auto; padding: 10px 16px; }
   .sidebar nav { flex-direction: row; }
   .sidebar-foot { display: none; }
+  .ibkr-pill { margin-left: auto; white-space: nowrap; }
   main { padding: 16px; }
   .grid2 { grid-template-columns: 1fr; }
   .cal { grid-template-columns: repeat(7, 1fr); }
