@@ -48,4 +48,6 @@ export interface TradeMeta {
   /** Planned risk in money, for R-multiple */
   risk?: number;
   rating?: number;
+  /** Data-source ticker override for the price chart */
+  chartSymbol?: string;
 }
