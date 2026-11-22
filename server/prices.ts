@@ -14,7 +14,11 @@ export interface PriceResult { symbol: string; interval: string; candles: Candle
 const cache = new Map<string, { at: number; data: PriceResult }>();
 
 export class PriceError extends Error {
-  constructor(message: string, readonly status = 502) { super(message); }
+  readonly status: number;
+  constructor(message: string, status = 502) {
+    super(message);
+    this.status = status;
+  }
 }
 
 export function validate(q: URLSearchParams) {
