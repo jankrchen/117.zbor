@@ -11,8 +11,17 @@ Všetky dáta zostávajú lokálne v prehliadači (localStorage).
 - **Obchody** – triediteľná tabuľka, stránkovanie, export CSV.
 - **Kalendár** – mesačná heatmapa denného P&L s týždennými súčtami a obchodmi daného dňa.
 - **Reporty** – výkonnosť podľa symbolu, dňa v týždni, hodiny, mesiaca, smeru, dĺžky držania, ceny, triedy aktív, štítku a účtu.
-- **Detail obchodu** – exekúcie, štítky, poznámky, hodnotenie, plánované riziko (R).
+- **Detail obchodu** – cenový graf (sviečky) so šípkami pri každej exekúcii a čiarami priemerného vstupu/výstupu, exekúcie, štítky, poznámky, hodnotenie, plánované riziko (R).
 - **Filtre** – dátum (7D/30D/90D/YTD), symbol, smer, výsledok, účet, štítok, otvorené pozície.
+
+## Cenové grafy
+
+Detail obchodu zobrazuje sviečkový graf (Lightweight Charts) s vyznačenými nákupmi/predajmi.
+- Ceny sa sťahujú cez lokálny server z verejného chart endpointu **Yahoo Finance** (bez API kľúča, len čítanie). Je to neoficiálne rozhranie určené na osobné použitie.
+- Interval sviečok sa volí podľa veku a dĺžky obchodu (1m ≈ posledných 30 dní, 5m/15m ≈ 60 dní, 1h ≈ 2 roky, inak 1d), dá sa prepnúť ručne.
+- Časové pásmo časov od brokera sa nastavuje priamo v grafe (predvolene America/New_York).
+- Futures používajú priebežný kontrakt (napr. `MES=F`), opcie OCC symbol. Symbol pre graf sa dá pri obchode prepísať (napr. `SAP.DE`).
+- Pri ukážkových dátach sú sviečky simulované.
 
 ## Automatické prepojenie s IBKR (len čítanie)
 

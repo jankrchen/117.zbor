@@ -11,6 +11,7 @@
  */
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { parseFlexEnvelope, parseFlexXml } from '../src/lib/flex.ts';
+import { getPrices, PriceError } from './prices.ts';
 
 const SEND_URL = 'https://ndcdyn.interactivebrokers.com/AccountManagement/FlexWebService/SendRequest';
 const MIN_INTERVAL_MS = 60_000;
@@ -114,12 +115,22 @@ function isLocalRequest(req: IncomingMessage): boolean {
 
 /** Returns true if the request was handled. */
 export async function handleApi(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
-  const path = (req.url ?? '').split('?')[0];
-  if (!path.startsWith('/api/ibkr/')) return false;
+  const [path, query = ''] = (req.url ?? '').split('?');
+  if (!path.startsWith('/api/')) return false;
   if (!isLocalRequest(req)) {
     send(res, 403, { error: 'forbidden' });
     return true;
   }
+
+  if (path === '/api/prices' && req.method === 'GET') {
+    try {
+      send(res, 200, await getPrices(new URLSearchParams(query)));
+    } catch (e) {
+      send(res, e instanceof PriceError ? e.status : 500, { error: e instanceof Error ? e.message : String(e) });
+    }
+    return true;
+  }
+
   const cfg = config();
 
   if (path === '/api/ibkr/status' && req.method === 'GET') {

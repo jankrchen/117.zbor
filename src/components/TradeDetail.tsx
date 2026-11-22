@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Trade, TradeMeta } from '../types';
+import PriceChart from './PriceChart';
 import { dt, duration, money, num, pct, pnlClass } from '../lib/format';
 
 interface Props {
@@ -42,6 +43,8 @@ export default function TradeDetail({ trade: t, meta, allTags, onChange, onDelet
           <button className="link" onClick={onClose}>✕</button>
         </div>
         <div className={`big ${pnlClass(t.netPnl)}`}>{money(t.netPnl)}</div>
+
+        <PriceChart trade={t} symbolOverride={meta?.chartSymbol} onSymbolOverride={(s) => onChange({ chartSymbol: s })} />
 
         <dl className="metrics">
           <dt>Otvorené</dt><dd>{dt(t.openTime)}</dd>

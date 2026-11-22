@@ -139,7 +139,7 @@ main { padding: 18px 22px 40px; min-width: 0; }
 .cal-n { font-size: 11px; color: var(--muted); }
 
 .overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); display: flex; justify-content: flex-end; z-index: 10; }
-.drawer { width: min(560px, 100%); height: 100%; overflow-y: auto; background: var(--panel); padding: 20px; border-left: 1px solid var(--border); }
+.drawer { width: min(820px, 100%); height: 100%; overflow-y: auto; background: var(--panel); padding: 20px; border-left: 1px solid var(--border); }
 .drawer h4 { margin: 20px 0 8px; font-size: 13px; }
 .big { font-size: 30px; font-weight: 700; margin-bottom: 16px; }
 .stars { display: flex; }
@@ -173,3 +173,13 @@ main { padding: 18px 22px 40px; min-width: 0; }
   .cal-n { display: none; }
   .cal-v { font-size: 11px; }
 }
+
+.pchart { border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 16px; }
+.pchart-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.pchart-bar .muted { margin-left: auto; }
+.pchart-canvas { width: 100%; height: 320px; }
+.pchart-msg { min-height: 120px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.pchart-msg.muted { align-items: center; }
+.pchart-foot { margin-top: 6px; }
+.seg.small button, select.small { padding: 3px 8px; font-size: 12px; }
+button.link.small { font-size: 12px; padding: 0; }
